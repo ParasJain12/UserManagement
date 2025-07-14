@@ -16,18 +16,18 @@ class User{
     }
 
     public String getName(){
-        return this.name;
+        return name;
     }
 
     public String getEmail(){
-        return this.email;
+        return email;
     }
 
     public List<String> getMobileNumber(){
-        return this.mobileNumber;
+        return mobileNumber;
     }
 
-    public void setName(String name){
+    public void setName(String name){   
         this.name = name;
     }
     
@@ -48,8 +48,8 @@ class UserNotFoundException extends Exception {
 }
 
 public class UserManagement{
-    private static Scanner sc = new Scanner(System.in);
-    private static Map<String,User> user = new HashMap<>();
+    private static final Scanner sc = new Scanner(System.in);
+    private static final Map<String,User> user = new HashMap<>();
     private static final Pattern emailPattern = Pattern.compile("^[\\w.-]+@[\\w.-]+\\.[A-Za-z]{2,}$");
     private static final Pattern phonePattern = Pattern.compile("^[6-9]\\d{9}$");
     public static void main(String args[]){
@@ -85,9 +85,9 @@ public class UserManagement{
     //Create a user
     public static void createUser() throws UserNotFoundException{
         System.out.print("Enter name: ");
-        String name = sc.nextLine();
+        String name = sc.next();
         System.out.print("Enter a email: ");
-        String email = sc.nextLine();
+        String email = sc.next();
         if(!emailPattern.matcher(email).matches()){
             System.out.println("Invalid email format!!!");
             return;
@@ -98,7 +98,7 @@ public class UserManagement{
         List<String> mobileNumber = new ArrayList<>();
         while(true){
             System.out.print("Enter a mobile number: ");
-            String number = sc.nextLine();
+            String number = sc.next();
             if(!phonePattern.matcher(number).matches()){
                 System.out.println("Invalid mobile number!!!");
                 return;
@@ -107,7 +107,7 @@ public class UserManagement{
                 mobileNumber.add(number);
             }
             System.out.print("Add another number:(yes/no) ");
-            if(!sc.nextLine().equalsIgnoreCase("yes")){
+            if(!sc.next().equalsIgnoreCase("yes")){
                 break;
             }
         }
@@ -119,7 +119,7 @@ public class UserManagement{
     //Delete a user
     public static void deleteUser() throws UserNotFoundException{
         System.out.println("Enter email for delete operation: ");
-        String email = sc.nextLine();
+        String email = sc.next();
         if(!user.containsKey(email)){
             throw new UserNotFoundException("User not found!!!");
         }
@@ -130,7 +130,7 @@ public class UserManagement{
     //Get a single user
     public static void getSingleUser() throws UserNotFoundException{
         System.out.print("Enter a email to fetch single user: ");
-        String email = sc.nextLine();
+        String email = sc.next();
         if(!user.containsKey(email)){
             throw new UserNotFoundException("User not found!!!");
         }
@@ -151,11 +151,11 @@ public class UserManagement{
     //Update a user
     public static void updateUser() throws UserNotFoundException{
         System.out.print("Enter a email to update: ");
-        String email = sc.nextLine();
+        String email = sc.next();
         if(!user.containsKey(email)) throw new UserNotFoundException("User not found!!!");
         User u = user.get(email);
         System.out.print("Enter a new name: ");
-        String newName = sc.nextLine();
+        String newName = sc.next();
         if(!newName.isEmpty()){
             u.setName(newName);
         }
@@ -163,7 +163,7 @@ public class UserManagement{
         System.out.println("Enter a new number: ");
         while(true){
             System.out.print("Enter a mobile number: ");
-            String number = sc.nextLine();
+            String number = sc.next();
              if(!phonePattern.matcher(number).matches()){
                 System.out.println("Invalid mobile number!!!");
                 return;
@@ -172,7 +172,7 @@ public class UserManagement{
                 newNumber.add(number);
             }
             System.out.print("Add another number: (yes/no): ");
-            if (!sc.nextLine().equalsIgnoreCase("yes")){
+            if (!sc.next().equalsIgnoreCase("yes")){
                 break;
             }
         }
