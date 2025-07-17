@@ -50,6 +50,7 @@ class UserNotFoundException extends Exception {
 public class UserManagement{
     private static final Scanner sc = new Scanner(System.in);
     private static final Map<String,User> user = new HashMap<>();
+    
     private static final Pattern emailPattern = Pattern.compile("^[\\w.-]+@[\\w.-]+\\.[A-Za-z]{2,}$");
     private static final Pattern phonePattern = Pattern.compile("^[6-9]\\d{9}$");
     public static void main(String args[]){
@@ -61,19 +62,19 @@ public class UserManagement{
             System.out.println("4. Get All users");
             System.out.println("5. Update User");
             System.out.println("6. Exit");
-            int choice = sc.nextInt();
+            int choice = Integer.parseInt(sc.nextLine());
             try{
                 switch(choice){
-                    case 1 -> createUser();
-                    case 2 -> deleteUser();
-                    case 3 -> getSingleUser();
-                    case 4 -> getAllUser();
-                    case 5 -> updateUser();
-                    case 6 -> {
+                    case 1 : createUser();
+                    case 2 : deleteUser();
+                    case 3 : getSingleUser();
+                    case 4 : getAllUser();
+                    case 5 : updateUser();
+                    case 6 : {
                         System.out.println("Exit from application...");
                         return;
                     }
-                    default -> System.out.println("Incorrect choice");
+                    default : System.out.println("Incorrect choice");
                 }
             }
             catch(UserNotFoundException e){
@@ -85,9 +86,9 @@ public class UserManagement{
     //Create a user
     public static void createUser() throws UserNotFoundException{
         System.out.print("Enter name: ");
-        String name = sc.next();
+        String name = sc.nextLine();
         System.out.print("Enter a email: ");
-        String email = sc.next();
+        String email = sc.nextLine();
         if(!emailPattern.matcher(email).matches()){
             System.out.println("Invalid email format!!!");
             return;
@@ -98,7 +99,7 @@ public class UserManagement{
         List<String> mobileNumber = new ArrayList<>();
         while(true){
             System.out.print("Enter a mobile number: ");
-            String number = sc.next();
+            String number = sc.nextLine();
             if(!phonePattern.matcher(number).matches()){
                 System.out.println("Invalid mobile number!!!");
                 return;
@@ -107,7 +108,7 @@ public class UserManagement{
                 mobileNumber.add(number);
             }
             System.out.print("Add another number:(yes/no) ");
-            if(!sc.next().equalsIgnoreCase("yes")){
+            if(!sc.nextLine().equalsIgnoreCase("yes")){
                 break;
             }
         }
@@ -119,7 +120,7 @@ public class UserManagement{
     //Delete a user
     public static void deleteUser() throws UserNotFoundException{
         System.out.println("Enter email for delete operation: ");
-        String email = sc.next();
+        String email = sc.nextLine();
         if(!user.containsKey(email)){
             throw new UserNotFoundException("User not found!!!");
         }
@@ -130,7 +131,7 @@ public class UserManagement{
     //Get a single user
     public static void getSingleUser() throws UserNotFoundException{
         System.out.print("Enter a email to fetch single user: ");
-        String email = sc.next();
+        String email = sc.nextLine();
         if(!user.containsKey(email)){
             throw new UserNotFoundException("User not found!!!");
         }
@@ -151,19 +152,18 @@ public class UserManagement{
     //Update a user
     public static void updateUser() throws UserNotFoundException{
         System.out.print("Enter a email to update: ");
-        String email = sc.next();
+        String email = sc.nextLine();
         if(!user.containsKey(email)) throw new UserNotFoundException("User not found!!!");
         User u = user.get(email);
         System.out.print("Enter a new name: ");
-        String newName = sc.next();
+        String newName = sc.nextLine();
         if(!newName.isEmpty()){
             u.setName(newName);
         }
         List<String> newNumber = new ArrayList<>();
-        System.out.println("Enter a new number: ");
         while(true){
-            System.out.print("Enter a mobile number: ");
-            String number = sc.next();
+            System.out.print("Enter a new mobile number: ");
+            String number = sc.nextLine();
              if(!phonePattern.matcher(number).matches()){
                 System.out.println("Invalid mobile number!!!");
                 return;
@@ -172,7 +172,7 @@ public class UserManagement{
                 newNumber.add(number);
             }
             System.out.print("Add another number: (yes/no): ");
-            if (!sc.next().equalsIgnoreCase("yes")){
+            if (!sc.nextLine().equalsIgnoreCase("yes")){
                 break;
             }
         }
