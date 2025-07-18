@@ -78,8 +78,7 @@ public class UserMgmt {
                 continue;
             }
             if (!name.matches("[a-zA-Z ]+")) {
-                System.out.println(
-                        "Name must contain only letters and spaces \nNo digits or special characters allowed!");
+                System.out.println("Name must contain only letters and spaces \nNo digits or special characters allowed!");
                 continue;
             }
             break;
@@ -137,7 +136,8 @@ public class UserMgmt {
         if (map.remove(email) != null) {
             System.out.println("User is deleted");
         } else {
-            System.out.println("User not found");
+            throw new UserNotFoundException("Cannot delete \nUser not found with email: " + email);
+            //System.out.println("User not found");
         }
     }
 
@@ -161,7 +161,8 @@ public class UserMgmt {
         }
         List<String> list = map.get(email);
         if (list == null) {
-            System.out.println("Cannot find the data");
+            throw new UserNotFoundException("User not found with email: " + email);
+            //System.out.println("Cannot find the data");
         } else {
             System.out.println("Name: " + list.get(0));
             System.out.println("Email: " + email);
@@ -181,8 +182,9 @@ public class UserMgmt {
             return;
         }
         if (map.isEmpty()) {
-            System.out.println("Not found any data");
-            return;
+            throw new UserNotFoundException("\nUser not found");
+            //System.out.println("Not found any data");
+            //return;
         }
         for (Map.Entry<String, List<String>> entry : map.entrySet()) {
             String email = entry.getKey();
@@ -214,8 +216,9 @@ public class UserMgmt {
                 continue;
             }
             if (!map.containsKey(email)) {
-                System.out.println("User not found.");
-                return;
+                //System.out.println("User not found.");
+                //return;
+                throw new UserNotFoundException("Cannot update \nUser not found with email: " + email);
             }
             break;
         }
@@ -317,7 +320,7 @@ public class UserMgmt {
                             break;
                     }
                     map.put(email, updatedNumbers);
-                    System.out.println("Mobile number(s) updated successfully.");
+                    System.out.println("Mobile number updated successfully.");
                     break;
 
                 case 4:
@@ -328,7 +331,7 @@ public class UserMgmt {
             System.out.print("\nDo you want to update anything else for this user? (yes/no): ");
             String again = sc.nextLine();
             if (!again.equalsIgnoreCase("yes")) {
-                System.out.println("Finished updating user. Returning to main menu...");
+                System.out.println("Finished updating user \nReturning to main menu...");
                 break;
             }
         }
