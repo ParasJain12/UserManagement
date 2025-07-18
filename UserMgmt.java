@@ -77,8 +77,8 @@ public class UserMgmt {
                 System.out.println("Name cannot be empty!");
                 continue;
             }
-            if (!name.matches("[a-zA-Z ]+")) {
-                System.out.println("Name must contain only letters and spaces \nNo digits or special characters allowed!");
+            if (!name.matches("^[A-Za-z]+( [A-Za-z]+)*$")) {
+                System.out.println("Name must contain only letters and spaces \nNo digits or special characters allowed! \nOnly one space is allowed between words");
                 continue;
             }
             break;
@@ -258,9 +258,9 @@ public class UserMgmt {
                             System.out.println("Name cannot be empty");
                             continue;
                         }
-                        if (!newName.matches("[a-zA-Z ]+")) {
-                            System.out.println("Name must contain only letters and spaces. No digits or special characters allowed!");
-                            continue;
+                        if (!newName.matches("^[A-Za-z]+( [A-Za-z]+)*$")) {
+                            System.out.println("Name must contain only letters and spaces. No digits or special characters allowed!  \nOnly one space is allowed between words");
+                            continue
                         }
                         break;
                     }
